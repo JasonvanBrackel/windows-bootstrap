@@ -57,6 +57,8 @@ choco install nmap --confirm
 refreshenv
 choco install f.lux --confirm
 refreshenv
+choco install spotify --confirm
+refreshenv
 choco install visualstudio2017enterprise --confirm --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
 refreshenv
 choco install resharper-platform --confirm
