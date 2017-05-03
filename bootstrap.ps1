@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Bypass
 choco install pester --confirm
 refreshenv
 choco install pscx --confirm
@@ -46,8 +47,6 @@ choco install sourcetree --confirm
 refreshenv
 choco install vagrant --confirm
 refreshenv
-choco install webpi --confirm
-refreshenv
 choco install procmon --confirm
 refreshenv
 choco install openssh --confirm
@@ -64,11 +63,11 @@ choco install visualstudio2017enterprise --confirm #uncomment for all  --package
 refreshenv
 choco install resharper-platform --confirm
 refreshenv
-choco install MsSqlServer2014Express --confirm
-refreshenv
+#choco install MsSqlServer2014Express --confirm
+#refreshenv
 choco install MsSqlServerManagementStudio2014Express --confirm
 refreshenv
-choco install sql2014-powershell
+choco install sql2014-powershell --confirm
 refreshenv
 Write-Host "Enabling remote connections "
 Import-Module sqlps
