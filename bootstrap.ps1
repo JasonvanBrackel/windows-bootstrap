@@ -73,6 +73,7 @@ choco install MsSqlServerManagementStudio2014Express --confirm
 refreshenv
 choco install sql2014-powershell
 refreshenv
+Write-Host "Enabling remote connections "
 Import-Module sqlps
 $smo = 'Microsoft.SqlServer.Management.Smo.'  
 $wmi = new-object ($smo + 'Wmi.ManagedComputer').  
