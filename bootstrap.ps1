@@ -1,6 +1,3 @@
-Set-ExecutionPolicy Bypass
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 choco install pester --confirm
 refreshenv
 choco install pscx --confirm
@@ -94,5 +91,3 @@ $Np = $wmi.GetSmoObject($uri)
 $Np.IsEnabled = $true  
 $Np.Alter()  
 $Np
-
-exit

@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<ApprendaGridDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns="http://schemas.apprenda.com/ApprendaGridDefinitions"
+                         xsi:schemaLocation="http://schemas.apprenda.com/ApprendaGridDefinitions http://apprenda.com/schemas/platform/6.5/ApprendaGridDefinitions.xsd">
+ 
+  <ApprendaGrid licenseFilePath="D:\apps.apprenda.jvb.lic"
+                signingCertificatePath="C:\apprenda.victor.signing.pfx"
+                runtimeDriveLetter="D"
+                repositoryHost="victoria01"
+                enforceSslForAllPages="false"
+                useApprendaHostFileExtension="false"
+                requireSocAuthorization="true"
+                pathBasedUrlSubdomain="apps"
+                encryptInternalCommunication="true"
+                generateInternalCommunicationIssuerCertificate="true"
+                generateInternalCommunicationCertificates="true" />
+                <!--Platform encryption options can be configured above (Platform version 6.5.0 and later)-->
+ 
+    <!--Information for the initial Developer Team Account created with Platform installation-->
+    <CompanyInfo name="JvB Consulting"
+                 alias="JvB"
+                 address="5017 Swan Drive"
+                 city="Phoenixville"
+                 state="PA"
+                 zip="19460"
+                 country="United States of America"
+                 phoneNumber=""
+                 adminFirstName="Jason"
+                 adminLastName="van Brackel"
+                 adminEmail="jvanbrackel@apprenda.com" />
+                  
+    <!--Apprenda's free email solution will be used if this is set to "true"-->
+    <EmailConfig useFreeCloudSolution="true">
+     
+      <!--Omit the following section if you choose to use Apprenda's email solution
+      <SMTPConfig senderName="Apprenda Confirmation Agent"
+                  senderAddress="apprenda-notify@apprenda.com"
+                  smtpHost="emailserver"
+                  smtpPort="25"
+                  requiresAuthentication="false" / -->
+    </EmailConfig>
+ 
+    <!--Include the following section if you choose to deploy your platform with Identity Federation enabled-->
+    <!--<IdentityFederationConfig federationEndpoint="https://identity.apprenda.victor03/adfs/ls/"/>    -->
+     
+    <!--Include the following section if you choose to deploy your platform with Platform Auditing enabled (Platform version 6.5.0 and later)-->
+    <PlatformAuditingConfig enableAuditing="true">
+        <SQLInstance name="hqt-allagash04" username="saasgridadmin" password="5aa5gr1d" />
+    </PlatformAuditingConfig>
+     
+    <WindowsServiceConfig>
+      <AdminUserAccount>
+        <UserAccount domain="MYDOMAIN" username="adminaccount" />
+      </AdminUserAccount>
+      <SystemUserAccount>
+        <UserAccount domain="MYDOMAIN" username="systemaccount" />
+      </SystemUserAccount>
+    </WindowsServiceConfig>
+     
+    <!--Include the following section if your platform has at least one Linux node-->
+    <!--'elevationMethod'has possible values of 'su' and 'sudo'-->
+    <LinuxConfig adminUser="root" adminPassword="password" elevationMethod="su" appsRepositoryMount="/apprenda/repo/apps" systemRepositoryMount="/apprenda/repo/sys" defaultWorkloadAccount="apprenda" enableWorkloadAccountAutoCreation="true">
+     
+    <Clouds>
+      <!--if installing multiple clouds, the cloud that hosts the CoreDB instance must be listed first-->
+ 
+      <Cloud name="My Private PaaS"
+             description="Private cloud"
+             rootUrl="http://apprenda.victoria"
+             cloudType="Public"
+             infrastructureProvider="My Datacenter"
+             sslCertificatePath="C:\apprenda.victoria.pfx"
+             generateSslCertificate="false"
+             cachePorts="6379"
+             cacheSize="512"
+             cachePassword="password">
+                                 
+        <Servers>
+          <Server hostName="victoria01">
+            <Roles>
+              <Role name="loadManager"/>
+            </Roles>
+          </Server>
+          <Server hostName="victoria02">
+            <Roles>
+              <Role name="loadManager"/>
+            </Roles>
+          </Server>          
+          <Server hostName="victoria03">
+            <Roles>
+              <Role name="web"/>
+              <Role name="coordination"/>
+              <Role name="app"/>
+            </Roles>
+          </Server>
+          <Server hostName="victoria04">
+            <Roles>
+              <Role name="app"/>
+              <Role name="web"/>
+              <Role name="coordination"/>              
+            </Roles>
+          </Server>
+          <Server hostName="victoria05">
+            <Roles>
+              <Role name="web"/>
+              <Role name="coordination"/>
+              <Role name="cache"/>
+              <Role name="app"/>
+            </Roles>
+          </Server>
+          <Server hostName="victoria06">
+            <Roles>
+              <Role name="linux"/>
+            </Roles>
+          </Server>
+          <Server hostName="victoria07">
+            <Roles>
+              <Role name="linux"/>
+            </Roles>
+          </Server>
+        </Servers>
+        <DatabaseServerInstances>
+          <DatabaseServerInstance name="victoriaDB"
+                                  adminUser="myadmin"
+                                  totalMemoryMB="12270"
+                                  totalCpuMHz="27136"
+                                  totalStorageMB="10240"
+                                  coreServer="true"
+                                  fqdn="victoriaDB.Apprenda.local" />
+ 
+          <DatabaseServerInstance name="victOracle"
+                                  type="Oracle"
+                                  port="1521"
+                                  serviceName="vicky"
+                                  adminUser="myadmin"
+                                  totalMemoryMB="12270"
+                                  totalCpuMHz="27136"
+                                  totalStorageMB="10240"
+                                  coreServer="false"
+                                  fqdn="victOracle.Apprenda.local" />
+        </DatabaseServerInstances>
+ 
+        <!--Include the section below only if your cloud includes a clustered Loadmanager with a shared IIS configuration file-->     
+        <IisSharedConfig path="\\victoria03\sharediisconfig"
+                         username="MYDOMAIN\username"  />   
+ 
+      </Cloud>    
+ 
+      <Cloud name="My Public PaaS"
+             description="Public cloud"
+             rootUrl="http://apprenda.victor"
+             cloudType="Public"
+             infrastructureProvider="Off-site Datacenter"
+             sslCertificatePath="C:\apprenda.victor.pfx"
+             generateSslCertificate="false"
+             cachePorts="6379"
+             cacheSize="512"
+             cachePassword="password">           
+              
+        <Servers>
+          <Server hostName="victor01">
+            <Roles>
+              <Role name="loadManager"/>
+            </Roles>
+          </Server>
+          <Server hostName="victor02">
+            <Roles>
+              <Role name="loadManager"/>
+            </Roles>
+          </Server>          
+          <Server hostName="victor03">
+            <Roles>
+              <Role name="web"/>
+              <Role name="coordination"/>
+              <Role name="app"/>
+              <Role name="adfs"/>
+            </Roles>
+          </Server>
+          <Server hostName="victor04">
+            <Roles>
+              <Role name="app"/>
+              <Role name="web"/>
+              <Role name="coordination"/>              
+            </Roles>
+          </Server>
+          <Server hostName="victor05">
+            <Roles>
+              <Role name="web"/>
+              <Role name="coordination"/>
+              <Role name="app"/>
+            </Roles>
+          </Server>          
+        </Servers>
+        <DatabaseServerInstances>
+          <DatabaseServerInstance name="victorDB"
+                                  adminUser="myadmin"
+                                  totalMemoryMB="12270"
+                                  totalCpuMHz="27136"
+                                  totalStorageMB="10240"
+                                  coreServer="false"
+                                  fqdn="victorDB.Apprenda.local" />
+        </DatabaseServerInstances>  
+ 
+        <!--Include the section below only if your cloud includes a clustered Loadmanager with a shared IIS configuration file-->     
+        <IisSharedConfig path="\\victor03\sharediisconfig"
+                         username="MYDOMAIN\username"  />   
+ 
+      </Cloud>
+    </Clouds>
+  </ApprendaGrid>
+</ApprendaGridDefinitions>
