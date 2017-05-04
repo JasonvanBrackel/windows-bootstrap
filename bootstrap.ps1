@@ -1,4 +1,6 @@
 Set-ExecutionPolicy Bypass
+choco install rsat --confirm
+refreshenv
 choco install pester --confirm
 refreshenv
 choco install pscx --confirm
