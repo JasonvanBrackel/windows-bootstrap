@@ -1,9 +1,12 @@
+Import-Module sqlps
 $instanceName = "$env:Computername\SQLExpress"
 $loginName = "apprendadbadmin"
 $dbUserName = "apprendadbadmin"
 $password = "P@ssword1"
 $databasenames = "master"
 $roleName = "db_owner"
+#TODO adjust this to min viable
+$adminRoles = @("bulkadmin", "diskadmin", "processadmin", "securityadmin", "setupadmin", "sysadmin")
 
 $server = New-Object -TypeName Microsoft.SqlServer.Management.Smo.Server -ArgumentList $instanceName
 
@@ -43,4 +46,12 @@ foreach($databaseToMap in $databasenames)
     $dbrole.AddMember($dbUserName)
     $dbrole.Alter()
     Write-Host("User $dbUser successfully added to $roleName role.")
+}
+
+foreach($serverRoleName in $adminRoles) {
+    "Getting Role $serverRoleName"
+    $serverRole = $server.Roles[$serverRoleName]
+    $serverRole.AddMember($dbUserName)
+    $serverRole.Alter()
+    Write-Host "User $dbUser added to server role $serverRoleName."
 }

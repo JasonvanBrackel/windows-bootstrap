@@ -9,9 +9,9 @@
                 repositoryHost="JvB"
                 enforceSslForAllPages="false"
                 useApprendaHostFileExtension="false"
-                requireSocAuthorization="true"
+                requireSocAuthorization="false"
                 pathBasedUrlSubdomain="apps"
-                encryptInternalCommunication="true"
+                encryptInternalCommunication="false"
                 generateInternalCommunicationIssuerCertificate="true"
                 generateInternalCommunicationCertificates="true">
     <!--Platform encryption options can be configured above (Platform version 6.5.0 and later)-->

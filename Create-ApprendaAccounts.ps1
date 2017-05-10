@@ -49,4 +49,7 @@ process {
 
     Set-PolicyObjectRights $adminUser.SID $adminRights
     Set-PolicyObjectRights $systemUser.SID $systemRights
+
+    Add-LocalGroupMember -Group Administrators  -Member "ApprendaAdmin"
+    Add-LocalGroupMember -Group Administrators  -Member "ApprendaSystem"
 }

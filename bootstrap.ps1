@@ -1,4 +1,8 @@
-Set-ExecutionPolicy Bypass
+Set-ExecutionPolicy Bypass -Force
+
+.\Install-Chocolatey.ps1
+
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 choco install webpi --confirm
 refreshenv
 choco install pester --confirm
@@ -192,10 +196,15 @@ Invoke-WebRequest "https://github.com/azure/iisnode/releases/download/v0.2.21/ii
 msiexec /i "$env:Temp\iisnode-full-v0.2.21-x64.msi" /qn 
 Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction SilentlyContinue
 
-webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0"
+webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0,wif"
 
 $hostsFile = "C:\Windows\System32\drivers\etc\hosts"
 $hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
 $hoststring | Set-Content -Path $hostsFile
 #TODO Reboot here
 
+.\Create-ApprendaAccounts.ps1
+.\Create-ApprendaDbAdmin.ps1
+
+#TODO Reboot here
+.\Apprenda.Wizard.exe Install -inputFile ..\..\..\code\windows-bootstrap\local-platform.xml -tenantPassword "P@sssword1" -windowsSystemPassword "P@ssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "JvB\SQLExpress=P@ssword1"
