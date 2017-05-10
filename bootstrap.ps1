@@ -194,5 +194,8 @@ Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction Silentl
 
 webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0"
 
+$hostsFile = "C:\Windows\System32\drivers\etc\hosts"
+$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
+$hoststring | Set-Content -Path $hostsFile
 #TODO Reboot here
 
