@@ -1,8 +1,6 @@
 Set-ExecutionPolicy Bypass
 choco install webpi --confirm
 refreshenv
-choco install rsat --confirm
-refreshenv
 choco install pester --confirm
 refreshenv
 choco install pscx --confirm
@@ -73,12 +71,14 @@ choco install visualstudio2017enterprise --confirm #uncomment for all  --package
 refreshenv
 choco install resharper-platform --confirm
 refreshenv
-#choco install MsSqlServer2014Express --confirm
-#refreshenv
+choco install sql-server-management-studio --confirm
+refreshenv
 choco install MsSqlServerManagementStudio2014Express --confirm
 refreshenv
 choco install sql2014-powershell --confirm
 refreshenv
+
+#TODO Reboot here
 
 Get-Service SQLBrowser | Start-Service
 
@@ -117,7 +117,7 @@ write-output "Login Mode: $mode"
 $s.Settings.LoginMode = [Microsoft.SqlServer.Management.SMO.ServerLoginMode]::Mixed
 
 # Make the changes
-$srv.Alter()
+$s.Alter()
 
 
 Import-Module Dism
@@ -192,5 +192,7 @@ Invoke-WebRequest "https://github.com/azure/iisnode/releases/download/v0.2.21/ii
 msiexec /i "$env:Temp\iisnode-full-v0.2.21-x64.msi" /qn 
 Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction SilentlyContinue
 
-webpicmd /install /accepteula /products:"WebFarmFramework,ExternalCache,UrlRewrite2,ARRv3_0"
+webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0"
+
+#TODO Reboot here
 
