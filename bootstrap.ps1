@@ -69,8 +69,8 @@ choco install nodejs --confirm
 refreshenv
 choco install npm --confirm
 refreshenv
-choco install pip --confirm
-refreshenv
+#choco install pip --confirm
+#refreshenv
 choco install visualstudio2017enterprise --confirm #uncomment for all  --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
 refreshenv
 choco install resharper-platform --confirm
