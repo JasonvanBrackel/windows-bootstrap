@@ -137,4 +137,4 @@ $hoststring | Set-Content -Path $hostsFile
 .\Create-ApprendaDbAdmin.ps1
 
 #TODO Reboot here
-.\Apprenda.Wizard.exe Install -inputFile ..\..\local-platform.xml -tenantPassword "P@sssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "lab1\SQLEXPRESS=P@ssword1" -sslPasswords "lab1PaaS=password" -autorepair
+.\Apprenda.Wizard.exe Install -inputFile ..\..\local-platform.xml -tenantPassword "P@sssword1" -windowsAdminPassword "P@ssword1" -windowsSystemPassword "P@ssword1" -sqlPasswords "lab1\SQLEXPRESS=P@ssword1" -sslPasswords "lab1PaaS=password" -autorepair

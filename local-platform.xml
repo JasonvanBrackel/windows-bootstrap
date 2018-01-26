@@ -52,6 +52,9 @@
       <AdminUserAccount>
         <UserAccount domain="lab1" username="ApprendaAdmin" />
       </AdminUserAccount>
+      <SystemUserAccount>
+        <UserAccount domain="lab1" username="ApprendaSystem" />
+      </SystemUserAccount>
     </WindowsServiceConfig>
 
     <!--Include the following section if your platform has at least one Linux node-->
