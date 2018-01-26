@@ -45,7 +45,7 @@
 
     <!--Include the following section if you choose to deploy your platform with Platform Auditing enabled (Platform version 6.5.0 and later)-->
     <PlatformAuditingConfig enableAuditing="true">
-      <SQLInstance name="lab1" username="apprendadbadmin" password="P@ssword1" />
+      <SQLInstance name="lab1\SQLEXPRESS" username="apprendadbadmin" password="P@ssword1" />
     </PlatformAuditingConfig>
 
     <WindowsServiceConfig>
@@ -89,7 +89,7 @@
           </Server> -->
         </Servers>
         <DatabaseServerInstances>
-          <DatabaseServerInstance name="lab1"
+          <DatabaseServerInstance name="lab1\SQLEXPRESS"
                                   adminUser="apprendadbadmin"
                                   totalMemoryMB="12270"
                                   totalCpuMHz="27136"

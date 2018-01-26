@@ -1,5 +1,5 @@
 Import-Module sqlps
-$instanceName = "$env:Computername"
+$instanceName = "$env:Computername\SQLEXPRESS"
 $loginName = "apprendadbadmin"
 $dbUserName = "apprendadbadmin"
 $password = "P@ssword1"

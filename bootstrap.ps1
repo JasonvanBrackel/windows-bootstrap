@@ -6,7 +6,7 @@ choco install webpi --confirm
 refreshenv
 choco install sql-server-management-studio --confirm
 refreshenv
-choco install mssql2014express-defaultinstance --confirm
+choco install mssqlserver2014express --confirm
 refreshenv
 choco install sql2014-powershell --confirm
 refreshenv
@@ -24,14 +24,14 @@ $wmi = new-object ($smo + 'Wmi.ManagedComputer').
 $Wmi  
 
 # Enable the TCP protocol on the default instance.  
-$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='MSSQLSERVER']/ServerProtocol[@Name='Tcp']"  
+$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='SQLEXPRESS']/ServerProtocol[@Name='Tcp']"  
 $Tcp = $wmi.GetSmoObject($uri)  
 $Tcp.IsEnabled = $true  
 $Tcp.Alter()  
 $Tcp  
 
 # Enable the named pipes protocol for the default instance.  
-$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='MSSQLSERVER']/ServerProtocol[@Name='Np']"  
+$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='SQLEXPRESS']/ServerProtocol[@Name='Np']"  
 $Np = $wmi.GetSmoObject($uri)  
 $Np.IsEnabled = $true  
 $Np.Alter()  
@@ -39,7 +39,7 @@ $Np
 
 # Setup Mode
 # Connect to the instance using SMO
-$s = new-object ('Microsoft.SqlServer.Management.Smo.Server') "$($wmi.Name)"
+$s = new-object ('Microsoft.SqlServer.Management.Smo.Server') "$($wmi.Name)\SQLEXPRESS"
 [string]$nm = $s.Name
 [string]$mode = $s.Settings.LoginMode
 
@@ -137,4 +137,4 @@ $hoststring | Set-Content -Path $hostsFile
 .\Create-ApprendaDbAdmin.ps1
 
 #TODO Reboot here
-.\Apprenda.Wizard.exe Install -inputFile ..\..\local-platform.xml -tenantPassword "P@sssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "lab1=P@ssword1" -sslPasswords "lab1PaaS=password" -autorepair
+.\Apprenda.Wizard.exe Install -inputFile ..\..\local-platform.xml -tenantPassword "P@sssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "lab1\SQLEXPRESS=P@ssword1" -sslPasswords "lab1PaaS=password" -autorepair
