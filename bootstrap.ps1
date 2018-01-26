@@ -2,6 +2,8 @@ Set-ExecutionPolicy Bypass -Force
 
 .\Install-Chocolatey.ps1
 
+choco install firefox --confirm
+refreshenv
 choco install git --confirm
 refreshenv
 choco install webpi --confirm
