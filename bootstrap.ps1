@@ -2,7 +2,9 @@ Set-ExecutionPolicy Bypass -Force
 
 .\Install-Chocolatey.ps1
 
-choco install webpi --confirm
+choco install git --confirm
+refreshenv
+choco install iir-arr --confirm --ignore-checksums
 refreshenv
 choco install sql-server-management-studio --confirm
 refreshenv
