@@ -2,82 +2,11 @@ Set-ExecutionPolicy Bypass -Force
 
 .\Install-Chocolatey.ps1
 
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 choco install webpi --confirm
-refreshenv
-choco install pester --confirm
-refreshenv
-choco install pscx --confirm
-refreshenv
-choco install visualstudiocode --confirm
-refreshenv
-choco install putty.install --confirm
-refreshenv
-choco install docker-for-windows --confirm
-refreshenv
-choco install docker-compose --confirm
-refreshenv
-choco install golang --confirm
-refreshenv
-choco install notepadplusplus.install --confirm
-refreshenv
-choco install git.install --confirm
-refreshenv
-choco install hg --confirm
-refreshenv
-choco install googlechrome --confirm
-refreshenv
-choco install firefox --confirm
-refreshenv
-choco install winrar --confirm
-refreshenv
-choco install 7zip.install --confirm
-refreshenv
-choco install vlc --confirm
-refreshenv
-choco install jdk8 --confirm
-refreshenv
-choco install sysinternals --confirm
-refreshenv
-choco install procexp --confirm
-refreshenv
-choco install dropbox --confirm
-refreshenv
-choco install vim --confirm
-refreshenv
-choco install calibre --confirm
-refreshenv
-choco install fiddler4 --confirm
-refreshenv
-choco install sourcetree --confirm
-refreshenv
-choco install vagrant --confirm
-refreshenv
-choco install procmon --confirm
-refreshenv
-choco install openssh --confirm
-refreshenv
-choco install winmerge --confirm
-refreshenv
-choco install nmap --confirm
-refreshenv
-choco install f.lux --confirm
-refreshenv
-choco install spotify --confirm
-refreshenv
-choco install nodejs --confirm
-refreshenv
-choco install npm --confirm
-refreshenv
-#choco install pip --confirm
-#refreshenv
-choco install visualstudio2017enterprise --confirm #uncomment for all  --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
-refreshenv
-choco install resharper-platform --confirm
 refreshenv
 choco install sql-server-management-studio --confirm
 refreshenv
-choco install MsSqlServerManagementStudio2014Express --confirm
+choco install mssql2014express-defaultinstance --confirm
 refreshenv
 choco install sql2014-powershell --confirm
 refreshenv
@@ -95,14 +24,14 @@ $wmi = new-object ($smo + 'Wmi.ManagedComputer').
 $Wmi  
 
 # Enable the TCP protocol on the default instance.  
-$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='SQLEXPRESS']/ServerProtocol[@Name='Tcp']"  
+$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='MSSQLSERVER']/ServerProtocol[@Name='Tcp']"  
 $Tcp = $wmi.GetSmoObject($uri)  
 $Tcp.IsEnabled = $true  
 $Tcp.Alter()  
 $Tcp  
 
 # Enable the named pipes protocol for the default instance.  
-$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='SQLEXPRESS']/ServerProtocol[@Name='Np']"  
+$uri = "ManagedComputer[@Name='$($wmi.Name)']/ ServerInstance[@Name='MSSQLSERVER']/ServerProtocol[@Name='Np']"  
 $Np = $wmi.GetSmoObject($uri)  
 $Np.IsEnabled = $true  
 $Np.Alter()  
@@ -110,7 +39,7 @@ $Np
 
 # Setup Mode
 # Connect to the instance using SMO
-$s = new-object ('Microsoft.SqlServer.Management.Smo.Server') "$($wmi.Name)\SQLEXPRESS"
+$s = new-object ('Microsoft.SqlServer.Management.Smo.Server') "$($wmi.Name)"
 [string]$nm = $s.Name
 [string]$mode = $s.Settings.LoginMode
 
@@ -199,7 +128,8 @@ Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction Silentl
 webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0,wif"
 
 $hostsFile = "C:\Windows\System32\drivers\etc\hosts"
-$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
+#$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
+$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tvanbrackel.net`n`t127.0.0.1`tapps.vanbrackel.net`n`t127.0.0.1`twww.vanbrackel.net"
 $hoststring | Set-Content -Path $hostsFile
 #TODO Reboot here
 
@@ -207,4 +137,4 @@ $hoststring | Set-Content -Path $hostsFile
 .\Create-ApprendaDbAdmin.ps1
 
 #TODO Reboot here
-.\Apprenda.Wizard.exe Install -inputFile ..\..\..\code\windows-bootstrap\local-platform.xml -tenantPassword "P@sssword1" -windowsSystemPassword "P@ssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "JvB\SQLExpress=P@ssword1"
+.\Apprenda.Wizard.exe Install -inputFile ..\..\local-platform.xml -tenantPassword "P@sssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "lab1=P@ssword1" -sslPasswords "lab1PaaS=password" -autorepair

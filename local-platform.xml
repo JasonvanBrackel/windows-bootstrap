@@ -2,11 +2,11 @@
 <ApprendaGridDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                          xmlns="http://schemas.apprenda.com/ApprendaGridDefinitions"
-                         xsi:schemaLocation="http://schemas.apprenda.com/ApprendaGridDefinitions http://apprenda.com/schemas/platform/6.5/ApprendaGridDefinitions.xsd">
+                         xsi:schemaLocation="http://schemas.apprenda.com/ApprendaGridDefinitions http://apprenda.com/schemas/platform/8.2/ApprendaGridDefinitions.xsd">
 
-  <ApprendaGrid licenseFilePath="D:\apps.apprenda.jvb.lic"
+  <ApprendaGrid licenseFilePath="C:\vanbrackel.net.lic"
                 runtimeDriveLetter="D"
-                repositoryHost="JvB"
+                repositoryHost="lab1"
                 enforceSslForAllPages="false"
                 useApprendaHostFileExtension="false"
                 requireSocAuthorization="false"
@@ -17,8 +17,8 @@
     <!--Platform encryption options can be configured above (Platform version 6.5.0 and later)-->
 
     <!--Information for the initial Developer Team Account created with Platform installation-->
-    <CompanyInfo name="JvB Consulting"
-                 alias="JvB"
+    <CompanyInfo name="lab1 Consulting"
+                 alias="lab1"
                  address="5017 Swan Drive"
                  city="Phoenixville"
                  state="PA"
@@ -45,16 +45,13 @@
 
     <!--Include the following section if you choose to deploy your platform with Platform Auditing enabled (Platform version 6.5.0 and later)-->
     <PlatformAuditingConfig enableAuditing="true">
-      <SQLInstance name="JvB\SQLEXPRESS" username="apprendadbadmin" password="P@ssword1" />
+      <SQLInstance name="lab1" username="apprendadbadmin" password="P@ssword1" />
     </PlatformAuditingConfig>
 
     <WindowsServiceConfig>
       <AdminUserAccount>
-        <UserAccount domain="JvB" username="ApprendaAdmin" />
+        <UserAccount domain="lab1" username="ApprendaAdmin" />
       </AdminUserAccount>
-      <SystemUserAccount>
-        <UserAccount domain="JvB" username="ApprendaSystem" />
-      </SystemUserAccount>
     </WindowsServiceConfig>
 
     <!--Include the following section if your platform has at least one Linux node-->
@@ -64,18 +61,19 @@
     <Clouds>
       <!--if installing multiple clouds, the cloud that hosts the CoreDB instance must be listed first-->
 
-      <Cloud name="JvBPaaS"
+      <Cloud name="lab1PaaS"
              description="Private cloud"
-             rootUrl="http://apprenda.jvb"
+             rootUrl="http://vanbrackel.net"
              cloudType="Public"
              infrastructureProvider="My Datacenter"
-             generateSslCertificate="true"
+             sslCertificatePath="C:\vanbrackel.net.pfx"
+             generateSslCertificate="false"
              cachePorts="9001"
              cacheSize="512"
              cachePassword="P@ssword1">
 
         <Servers>
-          <Server hostName="JvB">
+          <Server hostName="lab1">
             <Roles>
               <Role name="loadManager"/>
               <Role name="web"/>
@@ -91,13 +89,13 @@
           </Server> -->
         </Servers>
         <DatabaseServerInstances>
-          <DatabaseServerInstance name="JvB\SQLExpress"
+          <DatabaseServerInstance name="lab1"
                                   adminUser="apprendadbadmin"
                                   totalMemoryMB="12270"
                                   totalCpuMHz="27136"
                                   totalStorageMB="10240"
                                   coreServer="true"
-                                  fqdn="JvB" />
+                                  fqdn="lab1" />
 
           <!--<DatabaseServerInstance name="victOracle"
                                   type="Oracle"

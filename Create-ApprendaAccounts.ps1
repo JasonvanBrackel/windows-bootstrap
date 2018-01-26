@@ -42,14 +42,10 @@ process {
     
     
     $adminUser = New-LocalUser -Name "ApprendaAdmin" -Password (ConvertTo-SecureString "P@ssword1" -AsPlainText -Force) -AccountNeverExpires -FullName "Apprenda Admin"
-    $systemUser = New-LocalUser -Name "ApprendaSystem" -Password (ConvertTo-SecureString "P@ssword1" -AsPlainText -Force) -AccountNeverExpires -FullName "Apprenda System"
 
     $adminRights = @("SeServiceLogonRight", "SeInteractiveLogonRight")
-    $systemRights = @("SeServiceLogonRight", "SeInteractiveLogonRight", "SeImpersonatePrivilege")
 
     Set-PolicyObjectRights $adminUser.SID $adminRights
-    Set-PolicyObjectRights $systemUser.SID $systemRights
 
     Add-LocalGroupMember -Group Administrators  -Member "ApprendaAdmin"
-    Add-LocalGroupMember -Group Administrators  -Member "ApprendaSystem"
 }
