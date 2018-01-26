@@ -4,6 +4,8 @@ Set-ExecutionPolicy Bypass -Force
 
 choco install git --confirm
 refreshenv
+choco install webpi --confirm
+refreshenv
 choco install iir-arr --confirm --ignore-checksums
 refreshenv
 choco install sql-server-management-studio --confirm
@@ -127,7 +129,7 @@ Invoke-WebRequest "https://github.com/azure/iisnode/releases/download/v0.2.21/ii
 msiexec /i "$env:Temp\iisnode-full-v0.2.21-x64.msi" /qn 
 Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction SilentlyContinue
 
-webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0,wif"
+webpicmd /install /accepteula /products:"wif"
 
 $hostsFile = "C:\Windows\System32\drivers\etc\hosts"
 #$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
