@@ -69,8 +69,6 @@ choco install nodejs --confirm
 refreshenv
 choco install npm --confirm
 refreshenv
-#choco install pip --confirm
-#refreshenv
 choco install visualstudio2017enterprise --confirm #uncomment for all  --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
 refreshenv
 choco install resharper-platform --confirm
@@ -192,19 +190,4 @@ Enable-WindowsOptionalFeature -Online -FeatureName IIS-FTPServer -All
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-FTPSvc -All
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-FTPExtensibility -All
 
-Invoke-WebRequest "https://github.com/azure/iisnode/releases/download/v0.2.21/iisnode-full-v0.2.21-x64.msi" -OutFile "$env:Temp\iisnode-full-v0.2.21-x64.msi"
-msiexec /i "$env:Temp\iisnode-full-v0.2.21-x64.msi" /qn 
-Remove-Item "$env:Temp\iisnode-full-v0.2.21-x64.msi" -Force -ErrorAction SilentlyContinue
-
-webpicmd /install /accepteula /products:"ExternalCache,UrlRewrite2,ARRv3_0,wif"
-
-$hostsFile = "C:\Windows\System32\drivers\etc\hosts"
-$hoststring = (Get-Content $hostsFile) + "`n`t127.0.0.1`tapprenda.jvb`n`t127.0.0.1`tapps.apprenda.jvb`n`t127.0.0.1`twww.apprenda.jvb"
-$hoststring | Set-Content -Path $hostsFile
 #TODO Reboot here
-
-.\Create-ApprendaAccounts.ps1
-.\Create-ApprendaDbAdmin.ps1
-
-#TODO Reboot here
-.\Apprenda.Wizard.exe Install -inputFile ..\..\..\code\windows-bootstrap\local-platform.xml -tenantPassword "P@sssword1" -windowsSystemPassword "P@ssword1" -windowsAdminPassword "P@ssword1" -sqlPasswords "JvB\SQLExpress=P@ssword1"
